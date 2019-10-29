@@ -18,6 +18,6 @@ app.use('/api/*', (req, res) => res.status(404).send('Unknown endpoint'))
 app.use(express.static(__dirname))
 app.use('*', (req, res) => res.sendFile(path.resolve(__dirname, 'index.html')))
 
-const port = 8090
+const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 8090
 
 app.listen(port, () => console.log(`Server listening on port ${port}`))
