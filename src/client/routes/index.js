@@ -8,7 +8,7 @@ import SingleComicPage from './SingleComicPage'
 Vue.use(Router)
 
 export default new Router({
-    mode: 'hash',
+    mode: process.env.NODE_ENV === 'production' ? 'history' : 'hash',
     routes: [
         {
             path: '/',
