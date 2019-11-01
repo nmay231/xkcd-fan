@@ -1,6 +1,6 @@
 <template>
     <div
-        v-if="expanded"
+        v-if="!expanded"
         class="comic-image-small"
         :title="hover"
         :style="{backgroundImage: `url(${backgroundUrl})`}"
@@ -21,7 +21,7 @@ export default Vue.extend({
 })
 </script>
 
-<style>
+<style scoped>
 /** @format */
 .comic-image-small {
     display: inline-block;

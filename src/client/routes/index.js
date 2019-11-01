@@ -2,8 +2,11 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import MainPage from './MainPage'
 import SingleComicPage from './SingleComicPage'
+import AboutPage from './AboutPage'
+import FavoritesPage from './FavoritesPage'
 
 Vue.use(Router)
 
@@ -20,10 +23,20 @@ export default new Router({
             component: MainPage,
         },
         {
-            path: '/single/:comicId',
+            path: '/single/:comicId?',
             name: 'SimgleComic',
             component: SingleComicPage,
             props: true,
+        },
+        {
+            path: '/about',
+            name: 'AboutPage',
+            component: AboutPage,
+        },
+        {
+            path: '/favorites',
+            name: FavoritesPage,
+            component: FavoritesPage,
         },
     ],
 })

@@ -2,14 +2,20 @@
 
 <template>
     <div id="MainPage">
+        <h4 class="my-3">
+            <i>Randall's latest and greatest</i>
+        </h4>
+        <h3>{{latestComic.title}}</h3>
         <comic-image
-            backgroundUrl="https://imgs.xkcd.com/comics/earth_temperature_timeline.png"
-            hover="[After setting your car on fire] Listen, your car's temperature has changed before."
+            class="mb-3"
+            :backgroundUrl="latestComic.img"
+            :hover="latestComic.alt"
+            expanded
         />
-        <comic-image
-            backgroundUrl="https://imgs.xkcd.com/comics/self_description.png"
-            hover="The contents of any one panel are dependent on the contents of every panel including itself. The graph of panel dependencies is complete and bidirectional, and each node has a loop. The mouseover text has two hundred and forty-two characters."
-        />
+        <b-button
+            class="btn btn-secondary mt-4 mb-5"
+            @click="goToRandomComic"
+        >See more of his creations</b-button>
     </div>
 </template>
 
@@ -21,9 +27,19 @@ import ComicImage from '@c/components/ComicImage'
 
 export default {
     name: 'MainPageComponent',
+    computed: {
+        latestComic: function() {
+            return this.$store.state.latestComic
+        },
+    },
+    methods: {
+        goToRandomComic() {
+            this.$router.push(`/single/${Math.floor(Math.random() * this.latestComic.num) + 1}`)
+        },
+    },
     components: {
         // 'test-button': TestButton,
-        'comic-image': ComicImage,
+        ComicImage,
     },
 }
 </script>

@@ -1,9 +1,31 @@
 <template>
-    <div v-if="loaded">
-        <h3 class="my-3">{{comic.title}}</h3>
-        <comic-image :backgroundUrl="comic.img" :hover="comic.alt" />
+    <div>
+        <div class="col-lg-11">
+            <b-button-group class="mt-4">
+                <b-link
+                    :disabled="1 >= parseInt(comicId)"
+                    :to="`/single/${parseInt(comic.num) - 1}`"
+                    class="btn btn-secondary shadow-none"
+                >Previous comic</b-link>
+                <b-link
+                    :to="`/single/${Math.floor(Math.random() * latestComicId) + 1}`"
+                    class="btn btn-secondary shadow-none"
+                >Go to random comic</b-link>
+                <b-link
+                    :disabled="parseInt(comic.num) >= latestComicId"
+                    :to="`/single/${parseInt(comic.num) + 1}`"
+                    class="btn btn-secondary shadow-none"
+                >Next comic</b-link>
+            </b-button-group>
+            <h3 class="my-3">{{comic.title}}</h3>
+            <comic-image :backgroundUrl="comic.img" :hover="comic.alt" class="mb-5" expanded />
+            <b-button
+                class="mb-5"
+                @click="toggleFavorite"
+            >{{this.favorited ? 'Remove from' : 'Add to'}} favorites</b-button>
+            <div v-for="fav in $store.state.favorites" v-bind:key="fav">{{fav}}</div>
+        </div>
     </div>
-    <div v-else>loading...</div>
 </template>
 
 <script>
@@ -11,48 +33,61 @@
 
 import ComicImage from '../components/ComicImage'
 
+import { fetchComic } from '@c/utils/fetchComic'
+
 export default {
     name: 'SingleComicPageComponent',
     props: {
         comicId: String,
     },
     data: () => ({
-        loaded: true,
-        comic: {
-            month: '1',
-            num: 688,
-            link: '',
-            year: '2010',
-            news: '',
-            safe_title: 'Self-Description',
-            transcript:
-                '[[There is a pie chart, mostly white with a black slice. The white is labeled "Fraction of this image which is white." The black is labeled "Fraction of this image which is black."]]\n\n[[There is a bar graph labeled "Amount of black ink by panel." Bar 1 is medium height, Bar 2 higher, Bar 3 lowest.]]\n\n[[There is a scatterplot labeled "Location of black ink in this image." It is the positive quarter of a coordinate grid with the zeroes marked. The graph is, of course, the whole comic scaled to fit the axes, including a smaller version of itself in the last panel, etc.]]\n\n{{Title text: The contents of any one panel are dependent on the contents of every panel including itself. The graph of panel dependencies is complete and bidirectional, and each node has a loop. The mouseover text has two hundred and forty-two characters.}}',
-            alt:
-                'The contents of any one panel are dependent on the contents of every panel including itself. The graph of panel dependencies is complete and bidirectional, and each node has a loop. The mouseover text has two hundred and forty-two characters.',
-            img: 'https://imgs.xkcd.com/comics/self_description.png',
-            title: 'Self-Description',
-            day: '13',
-        },
+        comic: {},
+        latestComicId: null,
     }),
-    created: function() {
-        // this.LoadComic()
-        console.log(this.comic.alt)
+    async created() {
+        if (!parseInt(this.latestComicId)) {
+            this.latestComicId = this.$store.state.latestComic.num
+        }
+    },
+    watch: {
+        comicId: {
+            immediate: true,
+            handler: 'LoadComic',
+        },
     },
     methods: {
-        LoadComic: async function() {
-            let raw = await fetch(`https://xkcd.com/${this.comicId}/info.0.json`, {
-                dataType: 'json',
-            })
-            this.comic = await raw.json()
+        async LoadComic() {
+            if (this.comicId) {
+                this.comic = await fetchComic(this.comicId)
+            } else {
+                this.comic = this.$store.state.latestComic
+                this.$router.replace(`/single/${this.comic.num}`)
+            }
             this.loaded = true
+        },
+        toggleFavorite() {
+            if (this.favorited) {
+                this.$store.dispatch('removeFromFavorites', this.comic.num)
+            } else {
+                this.$store.dispatch('addToFavorites', this.comic.num)
+            }
+        },
+    },
+    computed: {
+        favorited() {
+            return this.$store.getters.isInFavorites(this.comic.num)
         },
     },
     components: {
-        'comic-image': ComicImage,
+        ComicImage,
     },
 }
 </script>
 
-<style>
+<style scoped>
 /** @format */
+.no-style {
+    text-decoration: none;
+    color: white;
+}
 </style>
