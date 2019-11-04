@@ -10,6 +10,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import App from './App'
 import router from './routes'
 import store from './store'
+import './icons'
 
 Vue.config.productionTip = false
 

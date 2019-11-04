@@ -5,10 +5,11 @@
         <h4 class="my-3">
             <i>Randall's latest and greatest</i>
         </h4>
-        <h3>{{latestComic.title}}</h3>
         <comic-image
+            v-if="latestComic.img"
             class="mb-3"
             :backgroundUrl="latestComic.img"
+            :comicName="latestComic.title"
             :hover="latestComic.alt"
             expanded
         />
@@ -22,7 +23,6 @@
 <script>
 /** @format */
 
-// import TestButton from './components/TestComp'
 import ComicImage from '@c/components/ComicImage'
 
 export default {
@@ -38,7 +38,6 @@ export default {
         },
     },
     components: {
-        // 'test-button': TestButton,
         ComicImage,
     },
 }

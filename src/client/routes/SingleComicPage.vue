@@ -17,13 +17,18 @@
                     class="btn btn-secondary shadow-none"
                 >Next comic</b-link>
             </b-button-group>
-            <h3 class="my-3">{{comic.title}}</h3>
-            <comic-image :backgroundUrl="comic.img" :hover="comic.alt" class="mb-5" expanded />
+            <comic-image
+                v-if="comic.img"
+                :backgroundUrl="comic.img"
+                :hover="comic.alt"
+                :comicName="comic.title"
+                class="mt-3 mb-5"
+                expanded
+            />
             <b-button
                 class="mb-5"
                 @click="toggleFavorite"
             >{{this.favorited ? 'Remove from' : 'Add to'}} favorites</b-button>
-            <div v-for="fav in $store.state.favorites" v-bind:key="fav">{{fav}}</div>
         </div>
     </div>
 </template>
@@ -52,19 +57,18 @@ export default {
     watch: {
         comicId: {
             immediate: true,
-            handler: 'LoadComic',
+            async handler() {
+                if (this.comicId) {
+                    this.comic = await fetchComic(this.comicId)
+                } else {
+                    this.comic = this.$store.state.latestComic
+                    this.$router.replace(`/single/${this.comic.num}`)
+                }
+                this.loaded = true
+            },
         },
     },
     methods: {
-        async LoadComic() {
-            if (this.comicId) {
-                this.comic = await fetchComic(this.comicId)
-            } else {
-                this.comic = this.$store.state.latestComic
-                this.$router.replace(`/single/${this.comic.num}`)
-            }
-            this.loaded = true
-        },
         toggleFavorite() {
             if (this.favorited) {
                 this.$store.dispatch('removeFromFavorites', this.comic.num)
