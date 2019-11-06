@@ -49,6 +49,7 @@
 
 import Vue from 'vue'
 import InfiniteLoading from 'vue-infinite-loading'
+import clipboard from 'clipboard-polyfill'
 
 import { fetchComic } from '../utils/fetchComic'
 import ComicImage from '../components/ComicImage'
@@ -85,7 +86,7 @@ export default Vue.extend({
             setTimeout(() => this.favorites.splice(index, 1), 500)
         },
         copyToClipboard(comicId) {
-            navigator.clipboard.writeText(`https://xkcd.com/${comicId}`)
+            clipboard.writeText(`https://xkcd.com/${comicId}`)
         },
         scroll($state) {
             const nextComics = this.favoriteIds.slice(
