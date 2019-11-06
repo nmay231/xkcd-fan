@@ -12,6 +12,7 @@ const store = new Vuex.Store({
     state: {
         latestComic: {},
         favorites: [],
+        didInit: false,
     },
     mutations: {
         setFavorites(state, favorites) {
@@ -21,12 +22,16 @@ const store = new Vuex.Store({
         setLatestComic(state, latest) {
             state.latestComic = latest
         },
+        didInit(state) {
+            state.didInit = true
+        },
     },
     actions: {
         async init(store) {
             store.commit('setLatestComic', await fetchComic())
             const favs = localStorage.getItem('favoriteComics')
             if (favs) store.commit('setFavorites', JSON.parse(favs))
+            store.commit('didInit')
         },
         addToFavorites(store, fav) {
             store.commit('setFavorites', [...store.state.favorites, fav])
