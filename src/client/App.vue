@@ -2,14 +2,14 @@
 
 <template>
     <div id="app" class="mt-0">
-        <b-navbar toggleable="lg" type="dark" variant="secondary">
+        <b-navbar toggleable="md" type="dark" variant="secondary">
             <b-navbar-brand href="/">XKCD Fan</b-navbar-brand>
             <b-navbar-toggle target="nav-collapse" />
             <b-collapse id="nav-collapse" is-nav>
-                <b-navbar-nav>
-                    <b-link class="nav-link" to="/about">About</b-link>
-                    <b-link class="nav-link" to="/single">Latest Comic</b-link>
-                    <b-link class="nav-link" to="/favorites">Your Favorites</b-link>
+                <b-navbar-nav class="ml-auto mr-5">
+                    <b-link class="nav-link mx-3" to="/about">About</b-link>
+                    <b-link class="nav-link mx-3" to="/single">Latest Comic</b-link>
+                    <b-link class="nav-link mx-3" to="/favorites">Your Favorites</b-link>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>

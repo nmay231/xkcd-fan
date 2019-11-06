@@ -17,8 +17,22 @@
             <b>Disclaimer:</b> None of these amazing comics are mine; all credit goes to Monroe. Please,
             please,
             <i>please</i>, check out his site where he posts his original comics
-            <a href="xkcd.com">here</a> (xkcd.com)
+            <a
+                href="xkcd.com"
+                target="_blank"
+            >here</a> (xkcd.com)
             and go buy one of his books on amazon to support him.
+        </p>
+        <p>
+            His works are released under the
+            <a
+                href="http://creativecommons.org/licenses/by-nc/2.5/"
+                target="_blank"
+            >Creative Commons Attribution-NonCommercial 2.5 License</a>. You can read about his licensing preferences
+            <a
+                href="https://xkcd.com/license.html"
+                target="_blank"
+            >here</a>.
         </p>
     </div>
 </template>
