@@ -80,9 +80,7 @@ export default Vue.extend({
         removeFav(comicId) {
             this.$store.dispatch('removeFromFavorites', comicId)
             const index = this.favorites.findIndex((fav) => fav.num === comicId)
-            this.favorites = this.favorites.map((fav, i) =>
-                i === index ? { ...fav, _destroyed: true } : fav,
-            )
+            this.$set(this.favorites[index], '_destroyed', true)
             setTimeout(() => this.favorites.splice(index, 1), 500)
         },
         copyToClipboard(comicId) {
@@ -120,7 +118,7 @@ export default Vue.extend({
 }
 
 .destroyed {
-    animation: removed 500ms linear;
+    animation: removed 500ms ease-out;
     opacity: 0;
 }
 
