@@ -49,7 +49,7 @@
 
 import Vue from 'vue'
 import InfiniteLoading from 'vue-infinite-loading'
-import clipboard from 'clipboard-polyfill'
+import * as clipboard from 'clipboard-polyfill'
 
 import { fetchComic } from '../utils/fetchComic'
 import ComicImage from '../components/ComicImage'

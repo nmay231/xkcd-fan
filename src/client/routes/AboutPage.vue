@@ -20,6 +20,7 @@
             <a
                 href="xkcd.com"
                 target="_blank"
+                rel="noopener noreferrer"
             >here</a> (xkcd.com)
             and go buy one of his books on amazon to support him.
         </p>
@@ -28,10 +29,12 @@
             <a
                 href="http://creativecommons.org/licenses/by-nc/2.5/"
                 target="_blank"
+                rel="noopener noreferrer"
             >Creative Commons Attribution-NonCommercial 2.5 License</a>. You can read about his licensing preferences
             <a
                 href="https://xkcd.com/license.html"
                 target="_blank"
+                rel="noopener noreferrer"
             >here</a>.
         </p>
     </div>

@@ -13,6 +13,7 @@
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
+        <!-- Add alerts here! -->
         <div class="container">
             <router-view />
         </div>
