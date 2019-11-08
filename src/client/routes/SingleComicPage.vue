@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="col-lg-11">
-            <b-button-group class="mt-4">
+        <div class="col-lg-12">
+            <b-button-group class="mt-5">
                 <b-link
                     :disabled="1 >= parseInt(comicId)"
                     :to="`/single/${parseInt(comic.num) - 1}`"
@@ -72,9 +72,14 @@ export default {
         toggleFavorite() {
             if (this.favorited) {
                 this.$store.dispatch('removeFromFavorites', this.comic.num)
+                this.softAlert('Removed from favorites', 2000)
             } else {
                 this.$store.dispatch('addToFavorites', this.comic.num)
+                this.softAlert('Added to favorites', 2000)
             }
+        },
+        softAlert(content, durationMs) {
+            this.$store.dispatch('makeSoftAlert', { content, durationMs })
         },
     },
     computed: {

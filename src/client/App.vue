@@ -1,7 +1,7 @@
 <!-- @format -->
 
 <template>
-    <div id="app" class="mt-0">
+    <div id="app">
         <b-navbar toggleable="md" type="dark" variant="secondary">
             <b-navbar-brand href="/">XKCD Fan</b-navbar-brand>
             <b-navbar-toggle target="nav-collapse" />
@@ -13,7 +13,7 @@
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
-        <!-- Add alerts here! -->
+        <soft-alert />
         <div class="container">
             <router-view />
         </div>
@@ -24,9 +24,11 @@
 /** @format */
 
 import Vue from 'vue'
+import SoftAlert from './components/SoftAlert'
 
 export default Vue.extend({
     name: 'App',
+    components: { SoftAlert },
 })
 </script>
 
@@ -38,7 +40,5 @@ export default Vue.extend({
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
 }
 </style>

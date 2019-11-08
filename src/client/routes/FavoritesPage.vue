@@ -23,7 +23,7 @@
                 <font-awesome-icon
                     icon="link"
                     class="mx-2 pointer"
-                    @click="copyToClipboard(fav.num)"
+                    @click="copyToClipboard(fav.num, fav.title)"
                     title="Copy original link"
                 />
             </div>
@@ -83,8 +83,9 @@ export default Vue.extend({
             this.$set(this.favorites[index], '_destroyed', true)
             setTimeout(() => this.favorites.splice(index, 1), 500)
         },
-        copyToClipboard(comicId) {
+        copyToClipboard(comicId, title) {
             clipboard.writeText(`https://xkcd.com/${comicId}`)
+            this.softAlert(`Copied "${title}" url to clipboard`)
         },
         scroll($state) {
             const nextComics = this.favoriteIds.slice(
@@ -104,6 +105,9 @@ export default Vue.extend({
                 this.page += 1
                 $state.loaded()
             })
+        },
+        softAlert(content, durationMs) {
+            this.$store.dispatch('makeSoftAlert', { content, durationMs })
         },
     },
     components: { ComicImage, InfiniteLoading },

@@ -13,6 +13,7 @@ const store = new Vuex.Store({
         latestComic: {},
         favorites: [],
         didInit: false,
+        softAlert: { content: null, timeoutId: null },
     },
     mutations: {
         setFavorites(state, favorites) {
@@ -24,6 +25,9 @@ const store = new Vuex.Store({
         },
         didInit(state) {
             state.didInit = true
+        },
+        updateSoftAlert(state, softAlert) {
+            Object.assign(state.softAlert, softAlert)
         },
     },
     actions: {
@@ -38,6 +42,14 @@ const store = new Vuex.Store({
         },
         removeFromFavorites(store, fav) {
             store.commit('setFavorites', store.state.favorites.filter((val) => val !== fav))
+        },
+        makeSoftAlert(store, { content, durationMs = 3000 }) {
+            clearTimeout(store.state.softAlert.timeoutId)
+            const timeoutId = setTimeout(
+                () => store.commit('updateSoftAlert', { content: null }),
+                durationMs,
+            )
+            store.commit('updateSoftAlert', { content, timeoutId })
         },
     },
     getters: {
