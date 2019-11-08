@@ -29,6 +29,10 @@
                 class="mb-5"
                 @click="toggleFavorite"
             >{{this.favorited ? 'Remove from' : 'Add to'}} favorites</b-button>
+            <p class="d-md-none text-muted mb-5 col-md-10 mx-auto">
+                Hidden text:
+                <i>{{comic.alt}}</i>
+            </p>
         </div>
     </div>
 </template>
